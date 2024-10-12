@@ -1,14 +1,23 @@
 <% @books.each do |book| %>
- <div>
-   <p>Title:<</p>
- </div>
+  <div>
+    <%= link_to book_path(book.id) do %>
+        <%= image_tag book.get_image %>
+    <% end %>
+    <p>投稿ユーザー画像：<%= image_tag 'sample-author1.jpg' %></p>
+    <p>Title:<%= book.title %></p>
+    <p>Opinion：<%= book.body %></p>
+    <p>ユーザーネーム：<%= book.user.name %></p>
+  </div>
+<% end %>
+
 <h1>New book</h1>
-<%= from_whit model: @book do |f| %>
+<%= form_with model: @book do |f| %>
 
   <h4>Title</h4>
   <%= f.text_field :title %>
-  
+
   <h4>Opinion</h4>
   <%= f.text_area :body %>
-  <%= f.submit 'Create Book' >
+  
+  <%= f.submit 'Create Book' %>
 <% end %>
