@@ -1,33 +1,14 @@
- <h1>User info</h1>
-  <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" ,format: 'no_image.jpg' %>
+<h1>Users</h1>
 
-  <p>name</p>
-  <%= @user.name %>
-  
-  <p>introduction<p>
-  <%= @user.introduction %>
-  
-  <%= link_to"",edit_user_path(current_user.id) %>
-  
-  
-  <%= form_for(@book,  url: books_path) do |f| %>
+<p>image</p>
+<p>name</p>
 
-    <h1>New book</h1>
-    <p>Title</p>
-     <%= f.text_field :title %>
+<% @users.each do |f| %>
+  <%= link_to users_path(f.id) do %>
+  <%= image_tag f.get_profile_image %>
+<% end %>
 
-    <h4>Opinion</h4>
-    <%= f.text_field :body %>
+<%= f.name %>
 
-    <div>
-    <%= f.submit 'Create Book' %>
-    </div>
-  <% end %>
-
-    <h1>Users</h1>
-
-    <% @users.each do |user| %>
-    <%= attachment_image_tag user, :profile_image, :fill, 20, 20, fallback: "no_image.jpg",size:'20x20',format: 'no_image.jpg' %>
-    <%= user.name %>
-   <%= link_to"Show",user_path(user.id) %>
-   <% end %>
+<%= link_to "Show", users_path(f.id) %>
+<% end %>
