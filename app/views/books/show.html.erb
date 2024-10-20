@@ -1,46 +1,37 @@
-<% if @book.errors %>
-  <ul>
-    <% @book.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-     <% end %>
-  </ul>
-<% end %>
+<%= render 'list', user: @user, book: @book %>
 
-  <h1>User info</h1>
-   <%= attachment_image_tag @book.user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" ,format: 'no_image.jpg' %>
+<h1>Book detail</h1>
 
-   <p>name</p>
-   <%= @book.user.name %>
-   <p>introduction</p>
-   <%= @book.user.introduction %>
-
-   <%= link_to"",edit_user_path(@book.id) %>
-
-
-   <%= form_for(@book_new,  url: books_path)  do |f| %>
-
-    <h1>New book</h1>
-    <p>Title</p>
-    <%= f.text_field :title %>
-    <p>Opinion</p>
-    <%= f.text_field :body %>
-    <div>
-     <%= f.submit 'Create Book' %>
-    </div>
-    <% end %>
-  
-    <h1>Book detail</h1>
-      <%= link_to user_path(@book.user_id) do %>
-        <%= attachment_image_tag @book.user, :profile_image, :fill, 50, 50, fallback: "no_image.jpg",size:'50x50',format: 'no_image.jpg' %>
-         <div>
-           <%= @book.user.name %>
-         </div>
-       <% end %>
+<table>
+  <tobody>
+    <td>
+      <%= link_to user_path(@book.user.id) %>
+        <%= image_tag @book.user.get_profile_image(100,100) %>
+        <%= @book.user.name %>
+      <% end %>
+    </td>
+      
+    <td>
+      <%= link_to book_path(@book.id) do %>
+        <%= @book.title %>
+      <% end %>
+    </td>
+      
+    <td>
+      <%= @book.body %>
+    </td>
     
-    <%= link_to @book.title %>
-    <%= @book.body %>
-    <% if @book.user_id == current_user.id %>
-    <%= link_to"edit", edit_book_path(@book.id) %>
-    <%= link_to "destroy", book_path(@book.id), method: :delete,data: {confirm: "削除しますか？"} %>
-    <% end %>
-  
+    <td>
+      <% if @book.user == current_user %>
+        <%= link_to "Edit", edit_book_path(@book.id) %>
+      <% end %>
+    </td>
+    
+    <td>
+      <% if @book.user == current_user %>
+        <%= link_to "Destroy", book_path(@book) %>
+      <% end %>
+    </td>
+    
+  </tobody>
+</table>

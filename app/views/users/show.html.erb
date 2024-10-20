@@ -1,13 +1,25 @@
-<h1>Books</h1>
-<% @books.each do |book| %>
-  <p>Titele</p>
-  <p>Opinion</p>
-  <% if @user.profile_image.attached? %>
-    <%= image_tag @user.profile_image, size: "100x100" %>
-  <% else %>
-    <%= image_tag 'no_image', size: "100x100" %>
-  <% end %>
+<%= render 'bool/list', user, book: @book %>
 
-  <%= link_to book.title, book_path(book) %>
-  <%= book.body %>
-<% end %>
+<h1>Books</h1>
+
+<table>
+  <thead>
+    <th>Titele</th>
+    <th>Opinion</th>
+  </thead>
+  
+  <tbody>
+    <% @book.each do |book| %>
+      <tr>
+        <%= link_to user_path(@user.id) do %>
+          <td><%= image_tag @user.profile_image(100,100) %></td>
+        <% end %>
+        
+        <%= link_to book_path(book.id) do %>
+          <td><%= book.title %></td>
+        <% end %>
+          <td><%= book.body %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

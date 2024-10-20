@@ -1,13 +1,19 @@
+<%= render 'list', user: @user, book: @book %>
+
 <h1>Books</h1>
 
-<p>Titele</p>
-<p>Opinion</p>
-
-<% @books. each do |book| %>
-  <%= link_to user_path(book.user.id) do %>
-    <%= image_tag book.user.get_profile_image(100,100) %>
-  <% end %>
-  
-  <%= link_to book.title, book_path(book.id) %>
-  <%= book.body %>
-<% end %>
+<table>
+  <thead>
+    <th>Titele</th>
+    <th>Opinion</th>
+    
+    <% @books. each do |book| %>
+      <%= link_to user_path(book.user.id) do %>
+        <%= image_tag book.user.get_profile_image(100,100) %>
+      <% end %>
+      
+      <%= link_to book.title, book_path(book.id) %>
+      <%= book.body %>
+    <% end %>
+  </thead>
+</table>
